@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "widgetarian": ["libs/widgetarian/src/index.tsx"],
+      "widgetarian/ui": ["libs/widgetarian/src/ui/index.tsx"],
+      "widgetarian/ui/*": ["libs/widgetarian/src/ui/*.tsx"],
+      "widgetarian/hooks": ["libs/widgetarian/src/hooks/index.tsx"],
+      "widgetarian/hooks/*": ["libs/widgetarian/src/hooks/*.tsx"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
