@@ -13,7 +13,7 @@ export const useToggle = (initialState = false): [boolean, ToggleHandler] => {
 
   const toggleFn: ToggleHandler = useCallback((value) => {
     setState((toggled) => (typeof value === 'boolean' ? value : !toggled));
-  }, []);
+  }, [setState]);
 
   return [state, toggleFn];
 };

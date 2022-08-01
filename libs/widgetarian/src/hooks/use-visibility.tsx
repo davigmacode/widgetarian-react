@@ -1,19 +1,19 @@
 import { useState, useCallback, SyntheticEvent } from 'react';
 
-export type VisibilityResolver<P = unknown> = (
-  value?: P | PromiseLike<P | undefined>
+export type VisibilityResolver<P=unknown> = (
+  value?: P | PromiseLike<P|undefined>
 ) => void;
-export type VisibilityShow<P = unknown, R = unknown> = (
+export type VisibilityShow<P=unknown, R=unknown> = (
   payload?: P,
   event?: SyntheticEvent
 ) => Promise<R | undefined>;
-export type VisibilityHide<R = unknown> = (
+export type VisibilityHide<R=unknown> = (
   value?: R,
   event?: SyntheticEvent
 ) => void;
 export type VisibilityToggle = (event?: SyntheticEvent) => void;
 export type VisibilityStatusValue = 'shown' | 'hidden';
-export type VisibilityPayload<P = unknown> = P | null | undefined;
+export type VisibilityPayload<P=unknown> = P | null | undefined;
 
 export class VisibilityStatus {
   public value: VisibilityStatusValue;
@@ -27,29 +27,29 @@ export class VisibilityStatus {
   }
 }
 
-export interface VisibilityAction<P = unknown, R = unknown> {
-  show: VisibilityShow<P, R>;
-  hide: VisibilityHide<R>;
-  toggle: VisibilityToggle;
+export interface VisibilityAction<P=unknown, R=unknown> {
+  show: VisibilityShow<P, R>
+  hide: VisibilityHide<R>
+  toggle: VisibilityToggle
 }
 
-interface VisibilityData<P = unknown, R = unknown> {
-  status: VisibilityStatus;
-  resolver?: VisibilityResolver<R>;
-  event?: SyntheticEvent;
-  payload?: VisibilityPayload<P>;
+interface VisibilityData<P=unknown, R=unknown> {
+  status: VisibilityStatus
+  resolver?: VisibilityResolver<R>
+  event?: SyntheticEvent
+  payload?: VisibilityPayload<P>
 }
 
-export interface VisibilityReturn<P = unknown, R = unknown> {
-  status: VisibilityStatus;
-  show: VisibilityShow<P, R>;
-  hide: VisibilityHide<R>;
-  toggle: VisibilityToggle;
-  action: VisibilityAction<P, R>;
-  payload: VisibilityPayload<P>;
+export interface VisibilityReturn<P=unknown, R=unknown> {
+  status: VisibilityStatus
+  show: VisibilityShow<P, R>
+  hide: VisibilityHide<R>
+  toggle: VisibilityToggle
+  action: VisibilityAction<P, R>
+  payload: VisibilityPayload<P>
 }
 
-export const useVisibility = <P = unknown, R = unknown>(
+export const useVisibility = <P=unknown, R=unknown>(
   statusValue: VisibilityStatusValue = 'hidden'
 ): VisibilityReturn<P, R> => {
   const [data, setData] = useState<VisibilityData<P, R>>({

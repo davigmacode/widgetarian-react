@@ -11,7 +11,7 @@ export const useClickOutside = <T extends HTMLElement = HTMLElement>(
   const setClickOutside = useCallback(
     (value: boolean) => {
       setValue(value);
-      handler?.call(this, value);
+      handler && handler(value);
     },
     [handler]
   );
