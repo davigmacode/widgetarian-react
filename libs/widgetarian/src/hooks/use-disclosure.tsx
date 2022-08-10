@@ -71,6 +71,7 @@ export const useDisclosure = <P=unknown, R=unknown>(
     setData((data) => {
       data.resolver && data.resolver(value);
       return {
+        ...data,
         status: new DisclosureStatus('hidden'),
         event,
       }
@@ -79,6 +80,7 @@ export const useDisclosure = <P=unknown, R=unknown>(
 
   const toggle: DisclosureToggle = useCallback((event?) => {
     setData((data) => ({
+      ...data,
       status: new DisclosureStatus(
         data.status.value === 'shown' ? 'hidden' : 'shown'
       ),
