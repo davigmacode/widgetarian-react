@@ -1,4 +1,5 @@
-import { useCallback, useState, ChangeEvent } from 'react'
+import { useCallback, ChangeEvent } from 'react'
+import { useSet } from './use-set'
 
 type CheckboxHookValue = string[] | undefined
 
@@ -12,8 +13,10 @@ type CheckboxHookBind = (value?: string | undefined) => {
 }
 
 interface CheckboxHookAction {
-  set: React.Dispatch<React.SetStateAction<CheckboxHookValue>>
-  reset: () => void
+  has: (key: string) => boolean
+  set: (key: string, isAdd: boolean) => void
+  toggle: (key: string) => void
+  reset: (value?: string[] | undefined) => void
 }
 
 type CheckboxHook = (initial?: CheckboxHookValue) => [
@@ -23,33 +26,29 @@ type CheckboxHook = (initial?: CheckboxHookValue) => [
 ]
 
 export const useCheckbox: CheckboxHook = (initial) => {
-  const [value, set] = useState(initial)
-
-  const reset = useCallback(() => set(initial), [set, initial])
+  const [value, { has, reset, set, toggle }] = useSet(new Set(initial))
 
   const onChange: CheckboxHookOnChange = useCallback((e) => {
-    set((value) => {
-      const uniqueValue = new Set(value)
-      if (e.target.checked) {
-        uniqueValue.add(e.target.value)
-      } else {
-        uniqueValue.delete(e.target.value)
-      }
-      return Array.from(uniqueValue)
-    })
+    const target = e.target
+    set(target.value, target.checked)
   }, [set])
 
   const bind: CheckboxHookBind = useCallback((v) => ({
     type: 'checkbox',
-    checked: !!v && !!value && value.includes(v),
+    checked: !!v && has(v),
     value: v,
     onChange
-  }), [value, onChange])
+  }), [onChange, has])
+
+  const utils: CheckboxHookAction = {
+    reset: useCallback((v) => reset(v && new Set(v)), [reset]),
+    toggle, set, has
+  }
 
   return [
-    value,
+    [...value],
     bind,
-    { set, reset }
+    utils
   ]
 }
 
