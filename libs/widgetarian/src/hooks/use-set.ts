@@ -1,42 +1,47 @@
-import { useCallback, useMemo, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState
+} from 'react';
 
 export interface StableActions<K> {
-  set: (key: K, isAdd: boolean) => void
-  add: (key: K) => void
-  remove: (key: K) => void
-  toggle: (key: K) => void
-  reset: (value?: Set<K>) => void
+  add: (item: K) => void
+  remove: (item: K) => void
+  toggle: (item: K, add: boolean) => void
+  set: Dispatch<SetStateAction<Set<K>>>
 }
 
 export interface Actions<K> extends StableActions<K> {
-  has: (key: K) => boolean;
+  reset: () => void
+  has: (item: K) => boolean;
 }
 
-export const useSet = <K>(initialSet = new Set<K>()): [Set<K>, Actions<K>] => {
+export type SetHookResponse<K> = [Set<K>, Actions<K>]
+
+export const useSet = <K>(initialSet = new Set<K>()): SetHookResponse<K> => {
   const [value, setValue] = useState(initialSet);
 
   const stableActions = useMemo<StableActions<K>>(() => {
     const add = (item: K) => setValue((prevSet) => new Set([...prevSet, item]));
     const remove = (item: K) =>
       setValue((prevSet) => new Set([...prevSet].filter((i) => i !== item)));
-    const toggle = (item: K) =>
+    const toggle = (item: K, add?: boolean) =>
       setValue((prevSet) =>
-        prevSet.has(item)
+        add === false || prevSet.has(item)
           ? new Set([...prevSet].filter((i) => i !== item))
           : new Set([...prevSet, item])
       );
-    const set = (item: K, isAdd = true) => isAdd ? add(item) : remove(item)
-    const reset = (newSet = initialSet) => setValue(newSet)
 
-    return { add, remove, toggle, reset, set }
-  }, [setValue, initialSet]);
+    return { add, remove, toggle, set: setValue }
+  }, []);
 
-  const utils = {
-    has: useCallback((item) => value.has(item), [value]),
-    ...stableActions,
-  } as Actions<K>;
+  const reset = useCallback(() => setValue(initialSet), [initialSet])
 
-  return [value, utils];
+  const has = useCallback((key: K) => value.has(key), [value])
+
+  return [ value, { ...stableActions, reset, has } ];
 };
 
 export default useSet;
