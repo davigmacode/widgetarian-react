@@ -7,4 +7,5 @@ export * from './use-hotkey';
 export * from './use-input';
 export * from './use-modal';
 export * from './use-radio';
+export * from './use-slots';
 export * from './use-toggle';
