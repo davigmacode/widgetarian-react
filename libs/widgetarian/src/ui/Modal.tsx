@@ -62,7 +62,7 @@ const getPosValue = (pos: string) => {
 
 const modalStyle = ({ shown, effect, position }: ModalProp) => {
   return createCss({
-    position: 'absolute',
+    position: 'fixed',
     display: 'flex',
     zIndex: 2000,
     inset: 0,

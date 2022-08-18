@@ -21,14 +21,23 @@ export const Portal: FC<PortalProp> = ({
   const [target, setTarget] = useState<HTMLElement|null>(null)
 
   useEffect(() => {
-    setTarget(document.getElementById(id) || createEl(id))
+    let element = document.getElementById(id);
+    let systemCreated = false;
+    // if element is not found with wrapperId or wrapperId is not provided,
+    // create and append to body
+    if (!element) {
+      systemCreated = true;
+      element = createEl(id);
+    }
+    setTarget(element);
 
     return () => {
-      if (target && target.innerHTML === "") {
-        target.remove()
+      // delete the programmatically created element
+      if (systemCreated && element && element.innerHTML === "" && element.parentNode) {
+        element.parentNode.removeChild(element);
       }
     }
-  }, [id, target])
+  }, [id])
 
   return target && createPortal(children, target)
 }

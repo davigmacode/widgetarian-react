@@ -1,5 +1,6 @@
-import { FC, ReactNode } from 'react'
-import { Portal } from '../ui/Portal'
+import { FC, ReactNode, useCallback, useMemo } from 'react'
+import { Modal } from '../ui/Modal'
+import { Overlay } from '../ui/Overlay'
 import {
   useDisclosure,
   DisclosureReturn
@@ -8,7 +9,6 @@ import {
 export interface ModalProp<P=unknown, R=unknown> {
   render?: ModalRender<P, R>
   children?: ReactNode | ModalRender<P, R> | undefined
-  template?: ModalTemplate<P, R>
 }
 
 export type ModalState<P=unknown, R=unknown> = DisclosureReturn<P, R>
@@ -30,23 +30,22 @@ interface ModalHookResult<P=unknown, R=unknown> extends ModalState<P, R> {
 }
 
 export const useModal = <P=unknown, R=unknown>({
-  template: defaultTemplate
+  template
 }: ModalHookOption<P, R> = {}): ModalHookResult<P, R> => {
   const disclosure = useDisclosure<P, R>()
+  const Template = useMemo(() => template || DefaultModalTemplate, [template])
 
-  const Modal: FC<ModalProp<P, R>> = ({ children, template, render }) => {
-    const Template = template || defaultTemplate || DefaultModalTemplate
+  const Modal: FC<ModalProp<P, R>> = useCallback(({
+    children,
+    render
+  }) => {
     const content = render
       ? render(disclosure)
       : typeof children === 'function'
         ? children(disclosure)
         : children
-    return (
-      <Template {...disclosure}>
-        {content}
-      </Template>
-    )
-  }
+    return Template({ ...disclosure, children: content })
+  }, [disclosure, Template])
 
   return { Modal, ...disclosure }
 }
@@ -54,25 +53,17 @@ export const useModal = <P=unknown, R=unknown>({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const DefaultModalTemplate: ModalTemplate<any, any> = ({
   status,
-  payload,
+  hide,
   children
 }) => {
+  const overlay = useCallback((shown: boolean) => {
+    return <Overlay shown={shown} onClick={() => hide()}/>
+  }, [hide])
+
   return (
-    <Portal id="modal-root">
-      <div style={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        width: '50%',
-        maxWidth: payload?.maxWidth || '630px',
-        minWidth: payload?.minWidth || '320px',
-        height: 'auto',
-        zIndex: payload?.zIndex || 2000,
-        visibility: status.shown ? 'visible' : 'hidden',
-        backfaceVisibility: 'hidden',
-        transform: 'translateX(-50%) translateY(-50%)',
-      }}>{children}</div>
-    </Portal>
+    <Modal shown={status.shown} overlay={overlay} effect="flip-y" portal="modal-root">
+      {children}
+    </Modal>
   )
 }
 

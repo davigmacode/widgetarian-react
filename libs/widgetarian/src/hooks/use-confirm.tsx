@@ -3,53 +3,48 @@ import {
   ReactNode,
   createContext,
   useContext,
+  useMemo,
 } from 'react'
 
 import {
   useDisclosure,
-  DisclosureReturn,
-  DisclosureStatus
+  DisclosureReturn
 } from './use-disclosure'
 
 import { Portal } from '../ui/Portal'
 
 interface ConfirmPayload {
-  title?: string
-  message?: string
+  title?: ReactNode
+  message?: ReactNode
 }
 
 type ConfirmState = DisclosureReturn<ConfirmPayload, boolean|null>
 
-const ConfirmContext = createContext<ConfirmState>({
-  status: new DisclosureStatus('hidden'),
-  show: async () => Promise.resolve(null),
-  hide: () => false,
-  toggle: () => false,
-  action: {
-    show: async () => Promise.resolve(null),
-    hide: () => false,
-    toggle: () => false,
-  },
-  payload: null,
-})
+const ConfirmContext = createContext<ConfirmState|null>(null)
 
 export const useConfirm = () => {
-  return useContext(ConfirmContext)
+  const context = useContext(ConfirmContext)
+
+  if (context === null) {
+    throw new Error("useConfirm was used outside of its Provider");
+  }
+
+  return context;
 }
 
 export type ConfirmTemplate = FC<ConfirmState>
 
-export interface ConfirmProp {
+export interface ConfirmProviderProp {
   children?: ReactNode | undefined
   template?: ConfirmTemplate
 }
 
-export const ConfirmProvider: FC<ConfirmProp> = ({
+export const ConfirmProvider: FC<ConfirmProviderProp> = ({
   children,
   template
 }) => {
   const disclosure = useDisclosure<ConfirmPayload, boolean|null>()
-  const Template = template || DefaultConfirmTemplate
+  const Template = useMemo(() => template || DefaultConfirmTemplate, [template])
 
   return <ConfirmContext.Provider value={disclosure}>
     {children}
@@ -63,7 +58,7 @@ export const DefaultConfirmTemplate: ConfirmTemplate = ({
   payload
 }) => {
   return (
-    <Portal id="confirm-root">
+    <Portal id="modal-root">
       <div style={{
         position: 'fixed',
         top: '50%',
@@ -74,11 +69,13 @@ export const DefaultConfirmTemplate: ConfirmTemplate = ({
         height: 'auto',
         zIndex: 2000,
         visibility: status.shown ? 'visible' : 'hidden',
+        opacity: status.shown ? 1 : 0,
         backfaceVisibility: 'hidden',
         transform: 'translateX(-50%) translateY(-50%)',
+        transition: 'all ease 0.3s'
       }}>
-        <h3>{payload?.title}</h3>
-        <p>{payload?.message}</p>
+        {payload?.title}
+        {payload?.message}
         <div>
           <button onClick={(e) => hide(null, e)}>Cancel</button>
           <button onClick={(e) => hide(false, e)}>No</button>
