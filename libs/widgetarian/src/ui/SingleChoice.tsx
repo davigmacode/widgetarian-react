@@ -51,7 +51,8 @@ export const SingleChoice: SingleChoiceComponent = ({
   const [choiceValue, setChoice] = useState<SingleChoiceValue>(value);
 
   useEffect(() => {
-    setChoice(value);
+    value !== choiceValue && setChoice(value);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
