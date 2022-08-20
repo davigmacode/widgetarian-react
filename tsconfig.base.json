@@ -15,11 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "widgetarian": ["libs/widgetarian/src/index.tsx"],
-      "widgetarian/ui": ["libs/widgetarian/src/ui/index.tsx"],
-      "widgetarian/ui/*": ["libs/widgetarian/src/ui/*.tsx"],
-      "widgetarian/hooks": ["libs/widgetarian/src/hooks/index.tsx"],
-      "widgetarian/hooks/*": ["libs/widgetarian/src/hooks/*.tsx"]
+      "widgetarian": ["libs/widgetarian/src/index"],
+      "widgetarian/ui": ["libs/widgetarian/src/ui/index"],
+      "widgetarian/ui/*": ["libs/widgetarian/src/ui/*"],
+      "widgetarian/hooks": ["libs/widgetarian/src/hooks/index"],
+      "widgetarian/hooks/*": ["libs/widgetarian/src/hooks/*"],
+      "widgetarian/utils": ["libs/widgetarian/src/utils/index"],
+      "widgetarian/utils/*": ["libs/widgetarian/src/utils/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
