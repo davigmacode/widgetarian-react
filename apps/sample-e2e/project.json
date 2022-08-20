@@ -1,17 +1,17 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/landing-e2e/src",
+  "sourceRoot": "apps/sample-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/landing-e2e/cypress.json",
-        "devServerTarget": "landing:serve:development"
+        "cypressConfig": "apps/sample-e2e/cypress.json",
+        "devServerTarget": "sample:serve:development"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "landing:serve:production"
+          "devServerTarget": "sample:serve:production"
         }
       }
     },
@@ -19,10 +19,10 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/landing-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/sample-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["landing"]
+  "implicitDependencies": ["sample"]
 }

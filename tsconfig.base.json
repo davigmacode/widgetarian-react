@@ -16,10 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "widgetarian": ["libs/widgetarian/src/index"],
-      "widgetarian/ui": ["libs/widgetarian/src/ui/index"],
-      "widgetarian/ui/*": ["libs/widgetarian/src/ui/*"],
       "widgetarian/hooks": ["libs/widgetarian/src/hooks/index"],
       "widgetarian/hooks/*": ["libs/widgetarian/src/hooks/*"],
+      "widgetarian/ui": ["libs/widgetarian/src/ui/index"],
+      "widgetarian/ui/*": ["libs/widgetarian/src/ui/*"],
       "widgetarian/utils": ["libs/widgetarian/src/utils/index"],
       "widgetarian/utils/*": ["libs/widgetarian/src/utils/*"]
     }
