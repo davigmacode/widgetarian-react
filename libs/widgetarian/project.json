@@ -11,7 +11,7 @@
         "outputPath": "dist/libs/widgetarian",
         "tsConfig": "libs/widgetarian/tsconfig.lib.json",
         "project": "libs/widgetarian/package.json",
-        "entryFile": "libs/widgetarian/src/index.tsx",
+        "entryFile": "libs/widgetarian/src/index.ts",
         "external": ["react/jsx-runtime", "react", "react-dom"],
         "rollupConfig": "libs/widgetarian/rollup.config.js",
         "compiler": "babel",
