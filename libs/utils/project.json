@@ -12,9 +12,12 @@
         "tsConfig": "libs/utils/tsconfig.lib.json",
         "project": "libs/utils/package.json",
         "entryFile": "libs/utils/src/index.ts",
-        "external": ["react/jsx-runtime"],
+        "external": ["react/jsx-runtime", "react", "react-dom"],
         "rollupConfig": "libs/utils/rollup.config.js",
         "compiler": "babel",
+        "format": ["esm", "cjs"],
+        "generateExportsField": true,
+        "javascriptEnabled": true,
         "assets": [
           {
             "glob": "libs/utils/README.md",

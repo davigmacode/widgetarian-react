@@ -15,6 +15,9 @@
         "external": ["react/jsx-runtime", "react", "react-dom"],
         "rollupConfig": "libs/hooks/rollup.config.js",
         "compiler": "babel",
+        "format": ["esm", "cjs"],
+        "generateExportsField": true,
+        "javascriptEnabled": true,
         "assets": [
           {
             "glob": "libs/hooks/README.md",
