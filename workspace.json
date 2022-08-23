@@ -2,8 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "hooks": "libs/hooks",
     "sample": "apps/sample",
     "sample-e2e": "apps/sample-e2e",
-    "widgetarian": "libs/widgetarian"
+    "ui": "libs/ui",
+    "utils": "libs/utils"
   }
 }

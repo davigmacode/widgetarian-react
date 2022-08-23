@@ -15,13 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "widgetarian": ["libs/widgetarian/src/index"],
-      "widgetarian/hooks": ["libs/widgetarian/src/hooks/index"],
-      "widgetarian/hooks/*": ["libs/widgetarian/src/hooks/*"],
-      "widgetarian/ui": ["libs/widgetarian/src/ui/index"],
-      "widgetarian/ui/*": ["libs/widgetarian/src/ui/*"],
-      "widgetarian/utils": ["libs/widgetarian/src/utils/index"],
-      "widgetarian/utils/*": ["libs/widgetarian/src/utils/*"]
+      "widgetarian-react-hooks": ["libs/hooks/src/index"],
+      "widgetarian-react-hooks/*": ["libs/hooks/src/*"],
+      "widgetarian-react-ui": ["libs/ui/src/index"],
+      "widgetarian-react-ui/*": ["libs/ui/src/*"],
+      "widgetarian-react-utils": ["libs/utils/src/index"],
+      "widgetarian-react-utils/*": ["libs/utils/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
