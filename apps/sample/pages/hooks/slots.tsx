@@ -1,5 +1,9 @@
 import { FC, PropsWithChildren } from 'react';
-import { useSlots, Slot, PropsWithSlot } from 'widgetarian/hooks/use-slots';
+import {
+  useSlots,
+  Slot,
+  PropsWithSlot,
+} from 'widgetarian-react-hooks/use-slots';
 
 const Card: FC<PropsWithChildren> = ({ children }) => {
   const [Header, Body, Rest] = useSlots(children, ['header', 'body']);

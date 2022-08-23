@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
-import { MultiChoice, MultiChoiceRender } from 'widgetarian/ui';
-import { createCss } from 'widgetarian/utils';
+import {
+  MultiChoice,
+  MultiChoiceRender,
+} from 'widgetarian-react-ui';
+import { createCss } from 'widgetarian-react-utils';
 
 const choiceStyle = (checked: boolean) =>
   createCss({

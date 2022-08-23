@@ -1,9 +1,9 @@
 import {
   useModal as useMainModal,
   ModalTemplate,
-} from 'widgetarian/hooks/use-modal';
+} from 'widgetarian-react-ui';
 
-import { Portal, Modal } from 'widgetarian';
+import { Portal, Modal } from 'widgetarian-react-ui';
 
 export const useModal = () => {
   return useMainModal({ template: WidgetarianModalTemplate });

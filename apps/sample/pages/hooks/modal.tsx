@@ -1,7 +1,7 @@
 // import { useDisclosure } from 'widgetarian/hooks'
 // import { Modal, ModalEffect, MODAL_EFFECTS, Overlay } from 'widgetarian/ui'
 // import { useInput } from 'widgetarian/hooks/use-input'
-import { useModal } from 'widgetarian/hooks/use-modal';
+import { useModal } from 'widgetarian-react-ui';
 
 export const Page = () => {
   const { Modal, show, hide } = useModal();

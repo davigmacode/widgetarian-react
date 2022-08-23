@@ -1,6 +1,6 @@
-import { useInput } from 'widgetarian/hooks/use-input';
-import { useRadio } from 'widgetarian/hooks/use-radio';
-import { useCheckbox } from 'widgetarian/hooks/use-checkbox';
+import { useInput } from 'widgetarian-react-hooks/use-input';
+import { useRadio } from 'widgetarian-react-hooks/use-radio';
+import { useCheckbox } from 'widgetarian-react-hooks/use-checkbox';
 
 export const Page = () => {
   const [value, bind] = useInput();

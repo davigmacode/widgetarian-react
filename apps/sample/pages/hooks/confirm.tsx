@@ -1,5 +1,8 @@
 import { FC } from 'react';
-import { useConfirm, ConfirmProvider } from 'widgetarian/hooks';
+import {
+  useConfirm,
+  ConfirmProvider,
+} from 'widgetarian-react-ui';
 
 export const Page = () => {
   return (

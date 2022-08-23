@@ -1,4 +1,4 @@
-import { useFeedback } from 'widgetarian/hooks/use-feedback';
+import { useFeedback } from 'widgetarian-react-hooks';
 
 export const Page = () => {
   const [ref, state] = useFeedback<HTMLDivElement>();
