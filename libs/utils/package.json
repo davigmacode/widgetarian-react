@@ -1,5 +1,6 @@
 {
   "name": "widgetarian-react-utils",
+  "description": "React utils by widgetarian",
   "version": "0.0.1",
   "exports": {
     "./**/*": {
