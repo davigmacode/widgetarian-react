@@ -7,6 +7,11 @@
       "types": "./**/*.d.ts",
       "import": "./**/*.js",
       "require": "./**/*.cjs"
+    },
+    "./*": {
+      "types": "./*.d.ts",
+      "import": "./*.js",
+      "require": "./*.cjs"
     }
   }
 }
